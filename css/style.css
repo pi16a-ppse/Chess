@@ -1,0 +1,20 @@
+.board {
+    width: 560px;
+    height: 560px;
+    margin: 30px auto;
+    border: 1px solid #000;
+}
+
+.cell {
+    width: 70px;
+    height: 70px;
+    float: left;
+}
+
+.white {
+    background: #fff;
+}
+
+.dark {
+    background: #808080;
+}
