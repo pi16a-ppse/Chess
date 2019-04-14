@@ -38,6 +38,7 @@ let game = {
     
     /**
      * @description Создаёт алфавитную панель от А до Н
+     * @returns Блок с алфавитными элементами
      */
     createAlphaPanel: function() {
         let alphaPanel = document.createElement('div');
@@ -53,6 +54,24 @@ let game = {
         }
 
         return alphaPanel;
+    },
+
+    /**
+     * @description Создаёт числовую панель от 1 до 8
+     * @returns Блок с числовыми элементами
+     */
+    createNumericPanel: function() {
+        let numericPanel = document.createElement('div');
+        numericPanel.style.cssFloat = 'left';
+        
+        for (let i = 8; i >= 1; i--) {
+            let cell = document.createElement('div');
+            cell.className = 'numericLetter';
+            cell.textContent = i;
+            numericPanel.appendChild(cell);
+        }
+
+        return numericPanel;
     }
 }
 
