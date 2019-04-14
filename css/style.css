@@ -1,20 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
 .board {
-    width: 560px;
-    height: 560px;
+    width: 623.2px;
+    height: 623.2px;
     margin: 30px auto;
-    border: 1px solid #000;
+    box-sizing: content-box;
+    background-color: #aaa;
 }
 
 .cell {
-    width: 70px;
-    height: 70px;
+    width: 72px;
+    height: 72px;
     float: left;
 }
 
-.white {
-    background: #fff;
+.light-orange {
+    background: #FFCE9F;
 }
 
-.dark {
-    background: #808080;
+.dark-orange {
+    background: #D28B48;
+}
+
+.game-field {
+    width: 580px;
+    height: 580px;
+    position: relative;
+    float: left;
+    background: grey;
+    border: 2px solid white;
+    border-image: initial;
+}
+
+.alphabetLetter {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    width: 72px;
+    height: 21.6px;
+    line-height: 21.6px;
+    font-size: 14px;
+}
+
+.numericLetter {
+    text-align: center;
+    color: white;
+    line-height: 72px;
+    font-size: 14px;
 }
