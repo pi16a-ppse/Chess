@@ -62,6 +62,7 @@ let game = {
      */
     createNumericPanel: function() {
         let numericPanel = document.createElement('div');
+        numericPanel.style.width = '21.6px';
         numericPanel.style.cssFloat = 'left';
         
         for (let i = 8; i >= 1; i--) {
