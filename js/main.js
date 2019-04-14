@@ -34,6 +34,25 @@ let game = {
         gameBoard.appendChild(topPanel);
         gameBoard.appendChild(mid);
         gameBoard.appendChild(bottomPanel);
+    },
+    
+    /**
+     * @description Создаёт алфавитную панель от А до Н
+     */
+    createAlphaPanel: function() {
+        let alphaPanel = document.createElement('div');
+        alphaPanel.style.marginLeft = '21.6px';
+        const startIndex = 'A'.charCodeAt();
+        
+        for (let i = startIndex; i < startIndex + 8; i++) {
+            const alpha = String.fromCharCode(i);
+            let cell = document.createElement('div');
+            cell.className = 'alphabetLetter';
+            cell.textContent = alpha;
+            alphaPanel.appendChild(cell);
+        }
+
+        return alphaPanel;
     }
 }
 
