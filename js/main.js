@@ -7,10 +7,10 @@ let game = {
         let gameBoard = document.querySelector('.board');
         let gameField = document.createElement('div');
         let cell = document.createElement('div');
-        let topPanel = undefined;
-        let bottomPanel = undefined;
-        let leftPanel = undefined;
-        let rightPanel = undefined;
+        let topPanel = this.createAlphaPanel();
+        let bottomPanel = this.createAlphaPanel();
+        let leftPanel = this.createNumericPanel();
+        let rightPanel = this.createNumericPanel();
         let flag = true;
 
         // Прорисовка ячейки шахматной доски, левой и правой границы в div
