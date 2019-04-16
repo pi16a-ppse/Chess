@@ -20,6 +20,16 @@ const figure = {
     blackPawn: 'p'
 }
 
+/**
+ * @description Меняет ход игрока
+ * @param {string} moveColor Текущий ход
+ */
+function flipColor(moveColor) {
+    if (moveColor == color.white) return color.black;
+    if (moveColor == color.black) return color.white;
+    return color.none;
+}
+
 let game = {
     init: function () {
         this.createBoard();
