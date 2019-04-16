@@ -1,3 +1,9 @@
+const color = {
+    none: 'none',
+    white: 'white',
+    black: 'black'
+}
+
 let game = {
     init: function () {
         this.createBoard();
