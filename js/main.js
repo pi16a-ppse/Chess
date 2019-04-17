@@ -30,6 +30,25 @@ function flipColor(moveColor) {
     return color.none;
 }
 
+/**
+ * Преобразование всех позиций на доске в строку FEN
+ * @param {Array} boardFigures Массив 8х8 с фигурами
+ */
+function toFEN(boardFigures) {
+    let fen = '';
+
+    for (let x = 0; x < 8; x++) {
+        for (let y = 0; y < 8; y++)
+            fen += boardFigures[x, y] == figure.none ? '1' : BoardFigures[x, y];
+        if (x != 7) fen += '/';
+    }
+
+    for (let i = 8; i >= 2; i--)
+        fen.replace('11111111'.substr(0, i), i.toString());
+
+    return fen;
+}
+
 let game = {
     init: function () {
         this.createBoard();
