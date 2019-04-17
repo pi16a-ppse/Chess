@@ -49,6 +49,38 @@ function toFEN(boardFigures) {
     return fen;
 }
 
+/**
+ * @class Ячейка в шахматной доске
+ */
+class square {
+    /**
+     * @property Позиция ячейки 1 <= x <= 8
+     */
+    x = undefined;
+
+    /**
+     * @property Позиция ячейки a <= x <= h
+     */
+    y = undefined;
+
+    /**
+     * @property Шахматная позиция ячейки
+     */
+    name = String.fromCharCode('a'.charCodeAt() + y) + (8 - x);
+
+    constructor(e2) {
+        if (e2.length == 2 
+            && e2[0] >= 'a' && e2[0] <= 'h' 
+            && e2[1] >= '1' && e2[1] <= '8') {
+            this.x = '8'.charCodeAt() - e2[1].charCodeAt();
+            this.y = e2[0] - 'a'.charCodeAt();
+        } else {
+            this.x = -1;
+            this.y = -1;
+        }
+    }
+}
+
 let game = {
     init: function () {
         this.createBoard();
