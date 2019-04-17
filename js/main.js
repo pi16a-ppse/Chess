@@ -52,7 +52,7 @@ function toFEN(boardFigures) {
 /**
  * @class Ячейка в шахматной доске
  */
-class square {
+class Square {
     /**
      * @property Позиция ячейки 1 <= x <= 8
      */
@@ -83,7 +83,7 @@ class square {
             && e2[1] >= '1' && e2[1] <= '8') {
             this.x = '8'.charCodeAt() - e2[1].charCodeAt();
             this.y = e2[0] - 'a'.charCodeAt();
-        } else this = new square();
+        } else this = new Square();
     }
 
     /**
@@ -110,6 +110,21 @@ class square {
      */
     isOnBoard() {
         return (this.x >= 0 && this.x < 8) && (this.y >= 0 && this.y < 8);
+    }
+}
+
+class Board {
+    figures = undefined;
+
+    fen = undefined;
+    
+    moveColor = undefined;
+
+    moveNumber = undefined;
+
+    constructor(fen) {
+        this.fen = fen;
+        
     }
 }
 
