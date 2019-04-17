@@ -68,16 +68,32 @@ class square {
      */
     name = String.fromCharCode('a'.charCodeAt() + y) + (8 - x);
 
-    constructor(e2) {
+    constructor() {
+        this.x = -1;
+        this.y = -1;
+    }
+
+    /**
+     * @description Устанавливает ячейку в позиции e2
+     * @param {string} e2 Шахматная позиция ячейки (например a5, f1 и т. д.)
+     */
+    setChessPostion(e2) {
         if (e2.length == 2 
             && e2[0] >= 'a' && e2[0] <= 'h' 
             && e2[1] >= '1' && e2[1] <= '8') {
             this.x = '8'.charCodeAt() - e2[1].charCodeAt();
             this.y = e2[0] - 'a'.charCodeAt();
-        } else {
-            this.x = -1;
-            this.y = -1;
-        }
+        } else this = new square();
+    }
+
+    /**
+     * @description Устанавливает позицию ячейки по x и y
+     * @param {number} x Позиция ячейки по x
+     * @param {number} y Позиция ячейки по y
+     */
+    setXYPosition(x, y) {
+        this.x = x;
+        this.y = y;
     }
 
     /**
