@@ -88,6 +88,13 @@ class square {
     isSameSquare(from, to) {
         return from.x == to.x && from.y == to.y;
     }
+
+    /**
+     * Проверяет находится ли данная ячейка на доске
+     */
+    isOnBoard() {
+        return (this.x >= 0 && this.x < 8) && (this.y >= 0 && this.y < 8);
+    }
 }
 
 let game = {
