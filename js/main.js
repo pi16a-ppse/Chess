@@ -79,6 +79,15 @@ class square {
             this.y = -1;
         }
     }
+
+    /**
+     * @description Проверяет находятся ли данные ячейки на одном и том же месте
+     * @param {square} from Выбранная ячейка
+     * @param {square} to Ячейка назначения
+     */
+    isSameSquare(from, to) {
+        return from.x == to.x && from.y == to.y;
+    }
 }
 
 let game = {
