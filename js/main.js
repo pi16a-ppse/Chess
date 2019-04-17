@@ -113,6 +113,14 @@ class square {
     }
 }
 
+class board {
+    fen = undefined;
+
+    constructor(fen) {
+        this.fen = fen;
+    }
+}
+
 let game = {
     init: function () {
         this.createBoard();
