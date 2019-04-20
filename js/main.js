@@ -83,7 +83,10 @@ class Square {
             && e2[1] >= '1' && e2[1] <= '8') {
             this.x = '8'.charCodeAt() - e2[1].charCodeAt();
             this.y = e2[0] - 'a'.charCodeAt();
-        } else this = new Square();
+        } else {
+            this.x = -1;
+            this.y = -1;
+        }
     }
 
     /**
@@ -136,7 +139,6 @@ let game = {
     createBoard: function () {
         let gameBoard = document.querySelector('.board');
         let gameField = document.createElement('div');
-        let cell = document.createElement('div');
         let topPanel = this.createAlphaPanel();
         let bottomPanel = this.createAlphaPanel();
         let leftPanel = this.createNumericPanel();
@@ -148,7 +150,7 @@ let game = {
 
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
-                cell = document.createElement('div');
+                let cell = document.createElement('div');
                 cell.className = flag ? 'cell light-orange' 
                                       : 'cell dark-orange';
                 flag = !flag;
