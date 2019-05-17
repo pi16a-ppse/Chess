@@ -1,3 +1,6 @@
+/**
+ * @type {Array} Массив, хранящий расположения картинки фигур
+ */
 const imgSrc = {
     wk: 'img/wk.png',
     wq: 'img/wq.png',
@@ -14,23 +17,41 @@ const imgSrc = {
     bp: 'img/bp.png',
 }
 
+/**
+ * @type {String} Состояние отрисовки шахматных фигур
+ */
 const renderState = {
     text: 'text',
     img: 'img'
 }
 
+/**
+ * @type {Array} Массив доски
+ */
 let map = new Array();
 
+/**
+ * @type {Array} Массив возможных ходов фигуры
+ */
 let info = new Array();
 
+/**
+ * @type {Object} Координаты выбранной фигуры
+ */
 let fromFigure;
 
+/**
+ * @type {object} Координаты назначения фигуры
+ */
 let toFigure;
 
+/**
+ * @type {Number} Количество фозможных ходов
+ */
 let possibleMoves;
 
 /**
- * Информация о сохранённой пешке
+ * @type {Object} Информация о сохранённой пешке(фигура, координаты)
  */
 let savedPawn = {
     figure: ' ',
@@ -39,7 +60,7 @@ let savedPawn = {
 };
 
 /**
- * Координаты предыдущей ячейки
+ * @type {Object} Координаты предыдущей ячейки
  */
 let movingFrom = {
     x: 0,
@@ -47,19 +68,26 @@ let movingFrom = {
 };
 
 /**
- * Координаты битой пешки
+ * @type {Object} Координаты битой пешки
  */
 let pawnAttack = {
     x: -1,
     y: -1
 };
 
+/**
+ * @type {String} Определяет каким методом отображать фигуры (text, img)
+ */
 const renderer = renderState.img;
 
+/**
+ * @type {String} Определяет ход белых или чёрных фигур
+ */
 let moveColor = 'white';
 
 /**
- * 
+ * Обработчик события рестарт игры
+ * @returns {void}
  */
 const restart = $('#restart').click(function (e) { 
     e.preventDefault();
@@ -70,7 +98,8 @@ const restart = $('#restart').click(function (e) {
 });
 
 /**
- * 
+ * Инициализирует доску с фигурами
+ * @returns {void}
  */
 function initMap() {
     map = [
@@ -87,7 +116,8 @@ function initMap() {
 }
 
 /**
- * 
+ * Обновляет карту возможных ходов фигуры
+ * @returns {void}
  */
 function initInfo() {
     info = [
@@ -104,7 +134,8 @@ function initInfo() {
 }
 
 /**
- * @description Отмечает откуда можно ходить 
+ * @description Отмечает откуда можно ходить
+ * @returns {void} 
  */
 function markMovesFrom() {
     possibleMoves = 0;
@@ -135,6 +166,7 @@ function markMovesFrom() {
 
 /**
  * @description Отмечает куда можно ходить 
+ * @returns {void}
  */
 function markMovesTo() {
     initInfo();
@@ -154,9 +186,10 @@ function markMovesTo() {
 }
 
 /**
- * 
- * @param {Object} from 
- * @param {Object} to 
+ * Проверка может ли данная фигура на данной ячейке ходить
+ * @param {Object} from Координаты выбранной ячейки
+ * @param {Object} to Координаты назначения ячейки
+ * @returns {Boolean}
  */
 function canMove(from, to) {
     if (!canMoveFrom(from.x, from.y)) {
@@ -173,10 +206,10 @@ function canMove(from, to) {
 }
 
 /**
- * Проверяет шах
- * @param {Object} from Координаты выбранной фигуры
- * @param {Object} to Координаты назначения фигуры
- * @returns {Boolean} Наличие шаха
+ * Проверяет шах после хода
+ * @param {Object} from Координаты выбранной ячейки
+ * @param {Object} to Координаты назначения ячейки
+ * @returns {Boolean}
  */
 function isCheckAfterMove(from, to) {
     moveFigure(from, to);   // Сделал ход
@@ -191,7 +224,8 @@ function isCheckAfterMove(from, to) {
 }
 
 /**
- * 
+ * Проверяет шах
+ * @returns {Boolean}
  */
 function isCheck() {
     let king = findFigure(moveColor == 'white' ? 'k' : 'K'); // Находим короля
@@ -215,7 +249,8 @@ function isCheck() {
 }
 
 /**
- * 
+ * Проверяет мат
+ * @returns {Boolean}
  */
 function isCheckMate() {
     if (!isCheck()) {
@@ -226,7 +261,8 @@ function isCheckMate() {
 }
 
 /**
- * 
+ * Проверяет пат
+ * @returns {Boolean}
  */
 function isStaleMate() {
     if (isCheck()) {
@@ -237,8 +273,9 @@ function isStaleMate() {
 }
 
 /**
- * 
- * @param {*} figure 
+ * Находит координаты данной фигуры
+ * @param {String} figure Выбранная фигура
+ * @returns {Object}
  */
 function findFigure(figure) {
     for (let x = 0; x < 8; x++) {
@@ -253,9 +290,10 @@ function findFigure(figure) {
 }
 
 /**
- * 
- * @param {Object} from 
- * @param {Object} to 
+ * Проверяет корректность хода
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @returns {Boolean}
  */
 function isCorrectMove(from, to) {
     let figure = map[from.x][from.y];
@@ -278,84 +316,94 @@ function isCorrectMove(from, to) {
 }
 
 /**
- * 
- * @param {String} figure 
+ * Проверяет является ли эта фигура королём
+ * @param {String} figure Выбранная фигура
+ * @returns {Boolean}
  */
 function isKing(figure) {
     return figure.toUpperCase() == 'K';
 }
 
 /**
- * 
- * @param {String} figure 
+ * Проверяет является ли эта фигура ферзёй
+ * @param {String} figure Выбранная фигура
+ * @returns {Boolean}
  */
 function isQueen(figure) {
     return figure.toUpperCase() == 'Q';
 }
 
 /**
- * 
- * @param {String} figure 
+ * Проверяет является ли эта фигура слоном
+ * @param {String} figure Выбранная фигура
+ * @returns {Boolean}
  */
 function isBishop(figure) {
     return figure.toUpperCase() == 'B';
 }
 
 /**
- * 
- * @param {*} figure 
+ * Проверяет является ли эта фигура конём
+ * @param {String} figure Выбранная фигура
+ * @returns {Boolean}
  */
 function isKnight(figure) {
     return figure.toUpperCase() == 'N';
 }
 
 /**
- * 
- * @param {*} figure 
+ * Проверяет является ли эта фигура ладьёй
+ * @param {String} figure Выбранная фигура
+ * @returns {Boolean}
  */
 function isRook(figure) {
     return figure.toUpperCase() == 'R';
 }
 
 /**
- * 
- * @param {*} figure 
+ * Проверяет является ли эта фигура пешкой
+ * @param {String} figure Выбранная фигура
+ * @returns {Boolean}
  */
 function isPawn(figure) {
     return figure.toUpperCase() == 'P';
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Проверяет ход короля
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @returns {Boolean}
  */
 function isCorrectKingMove(from, to) {
     return Math.abs(to.x - from.x) <= 1 && Math.abs(to.y - from.y) <= 1;
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Проверяет ход ферзя
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @returns {Boolean}
  */
 function isCorrectQueenMove(from, to) {
     return isLineMove(from, to, 'Q');
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Проверяет ход слона
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @returns {Boolean}
  */
 function isCorrectBishopMove(from, to) {
     return isLineMove(from, to, 'B');
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Проверяет ход коня
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @returns {Boolean}
  */
 function isCorrectKnightMove(from, to) {
     if (Math.abs(to.x - from.x) == 1 && Math.abs(to.y - from.y) == 2) {
@@ -368,18 +416,20 @@ function isCorrectKnightMove(from, to) {
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Проверяет ход ладьи
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @returns {Boolean}
  */
 function isCorrectRookMove(from, to) {
     return isLineMove(from, to, 'R');
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Проверяет ход пешки
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @returns {Boolean}
  */
 function isCorrectPawnMove(from, to) {
     if (from.y < 1 || from.y > 6) {
@@ -394,10 +444,11 @@ function isCorrectPawnMove(from, to) {
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Проверяет ход пешки с учётом цвета
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
  * @param {*} sign 
+ * @returns {Boolean}
  */
 function isSignPawnMove(from, to, sign) {
     if (canPawnTakePass(from, to, sign)) {     // Взятие на проходе
@@ -422,10 +473,11 @@ function isSignPawnMove(from, to, sign) {
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
- * @param {*} sign 
+ * Проверяет ход пешки взятие на проходе
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @param {Number} sign 
+ * @returns {Boolean}
  */
 function canPawnTakePass(from, to, sign) {
     if (!(to.x == pawnAttack.x && to.y == pawnAttack.y)) {
@@ -440,10 +492,11 @@ function canPawnTakePass(from, to, sign) {
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
- * @param {*} figure 
+ * Проверяет ходов, которые идут по прямой (queen, bishop, rook)
+ * @param {Object} from Координаты начальной ячейки
+ * @param {Object} to Координаты конечной ячейки
+ * @param {String} figure Выбранная фигура
+ * @returns {Boolean}
  */
 function isLineMove(from, to, figure) {
     let deltaX = Math.sign(to.x - from.x);
@@ -471,10 +524,11 @@ function isLineMove(from, to, figure) {
 }
 
 /**
- * 
- * @param {*} deltaX 
- * @param {*} deltaY 
- * @param {*} figure 
+ * Проверяет ход фигуры (ферзь, слон, ладья)
+ * @param {Number} deltaX Разница между координатами начала и конца x
+ * @param {Number} deltaY Разница между координатами начала и конца x
+ * @param {String} figure Выбранная фигура
+ * @returns {Boolean}
  */
 function isCorrectDelta(deltaX, deltaY, figure) {
     if (isQueen(figure)) {
@@ -489,36 +543,40 @@ function isCorrectDelta(deltaX, deltaY, figure) {
 }
 
 /**
- * 
- * @param {*} deltaX 
- * @param {*} deltaY 
+ * Проверяет направление хода ферзя
+ * @param {Number} deltaX Разница между координатами начала и конца x
+ * @param {Number} deltaY Разница между координатами начала и конца y
+ * @returns {Boolean}
  */
 function isQueenDelta(deltaX, deltaY) {
     return true;
 }
 
 /**
- * 
- * @param {*} deltaX 
- * @param {*} deltaY 
+ * Проверяет направление хода слона
+ * @param {Number} deltaX Разница между координатами начала и конца x
+ * @param {Number} deltaY Разница между координатами начала и конца y
+ * @returns {Boolean}
  */
 function isBishopDelta(deltaX, deltaY) {
     return Math.abs(deltaX) + Math.abs(deltaY) == 2;
 }
 
 /**
- * 
- * @param {*} deltaX 
- * @param {*} deltaY 
+ * Проверяет направление хода ладьи
+ * @param {Number} deltaX Разница между координатами начала и конца x
+ * @param {Number} deltaY Разница между координатами начала и конца y
+ * @returns {Boolean}
  */
 function isRookDelta(deltaX, deltaY) {
     return Math.abs(deltaX) + Math.abs(deltaY) == 1;
 }
 
 /**
- * 
- * @param {*} x 
- * @param {*} y 
+ * Проверяет не пустая ли ячейка
+ * @param {Number} x Координата x ячейки
+ * @param {Number} y Координата y ячейки
+ * @returns {Boolean}
  */
 function isEmpty(x, y) {
     if (!isOnMap(x, y)) {
@@ -529,18 +587,20 @@ function isEmpty(x, y) {
 }
 
 /**
- * 
- * @param {*} x 
- * @param {*} y 
+ * Проверяет выход границу доски
+ * @param {Number} x Координата x ячейки
+ * @param {Number} y Координата y ячейки
+ * @returns {Boolean}
  */
 function isOnMap(x, y) {
     return (x >= 0 && x < 8) && (y >= 0 && y < 8);
 }
 
 /**
- * 
- * @param {*} x 
- * @param {*} y 
+ * Проверяет корректность координат выбранной ячейки в зависимости от цвета
+ * @param {Number} x Координата x ячейки
+ * @param {Number} y Координата y ячейки
+ * @returns {Boolean}
  */
 function canMoveFrom(x, y) {
     if (!isOnMap(x, y)) {
@@ -551,9 +611,10 @@ function canMoveFrom(x, y) {
 }
 
 /**
- * 
- * @param {*} x 
- * @param {*} y 
+ * Проверяет корректность координат выбранной ячейки в зависимости от цвета
+ * @param {Number} x Координата x ячейки
+ * @param {Number} y Координата y ячейки
+ * @returns {Boolean}
  */
 function canMoveTo(x, y) {
     if (!isOnMap(x, y)) {
@@ -568,9 +629,10 @@ function canMoveTo(x, y) {
 }
 
 /**
- * 
- * @param {*} x 
- * @param {*} y 
+ * Получает цвет фигуры
+ * @param {Number} x Координата x ячейки
+ * @param {Number} y Координата y ячейки
+ * @returns {String}
  */
 function getColor(x, y) {
     if (map[x][y] == ' ') {
@@ -581,9 +643,10 @@ function getColor(x, y) {
 }
 
 /**
- * 
- * @param {*} x 
- * @param {*} y 
+ * Обработчик события нажатие на ячейку
+ * @param {Number} x Координата x ячейки
+ * @param {Number} y Координата y ячейки
+ * @returns {void}
  */
 function clickCell(x, y) {
     if (info[x][y] == 1) {
@@ -594,9 +657,10 @@ function clickCell(x, y) {
 }
 
 /**
- * 
- * @param {*} x 
- * @param {*} y 
+ * Обработчик события нажатие на ячейку при выборе фигуры
+ * @param {Number} x Координата x выбранной ячейки
+ * @param {Number} y Координата y выбранной ячейки
+ * @returns {void}
  */
 function clickCellFrom(x, y) {
     movingFrom.x = x;
@@ -606,7 +670,8 @@ function clickCellFrom(x, y) {
 }
 
 /**
- * 
+ * Обработчик события нажатие на ячейку назначения
+ * @returns {void}
  */
 function clickCellTo(toX, toY) {
     let to = {
@@ -623,9 +688,10 @@ function clickCellTo(toX, toY) {
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Передвигает выбранную фигуру
+ * @param {Object} from Координаты выбранной фигуры
+ * @param {Object} to Координаты ячейки назначения
+ * @returns {void}
  */
 function moveFigure(from, to) {
     fromFigure = map[from.x][from.y];
@@ -636,9 +702,10 @@ function moveFigure(from, to) {
 }
 
 /**
- * 
- * @param {*} from 
- * @param {*} to 
+ * Возвращает пешку обратно
+ * @param {Object} from Координаты выбранной фигуры
+ * @param {Object} to Координаты ячейки назначения
+ * @returns {void}
  */
 function returnFigure(from, to) {
     map[from.x][from.y] = fromFigure;
@@ -647,9 +714,10 @@ function returnFigure(from, to) {
 }
 
 /**
- * 
- * @param {*} fromFigure 
- * @param {*} to 
+ * Превращение пешки
+ * @param {Object} fromFigure Координаты выбранной фигуры
+ * @param {Object} to Координаты ячейки назначения
+ * @returns {void}
  */
 function promotePawn(fromFigure, to) {
     if (!isPawn(fromFigure)) {
@@ -678,10 +746,11 @@ function promotePawn(fromFigure, to) {
 }
 
 /**
- * 
- * @param {*} fromFigure 
- * @param {*} toX 
- * @param {*} toY 
+ * Передвигает атакующую на проходе пешку
+ * @param {Object} fromFigure Координаты выбранной фигуры
+ * @param {Number} toX Координата ячейки назначения x
+ * @param {Number} toY Координата ячейки назначения y
+ * @returns {void}
  */
 function movePawnAttack(fromFigure, toX, toY) {
     if (isPawn(fromFigure)) {
@@ -696,7 +765,8 @@ function movePawnAttack(fromFigure, toX, toY) {
 }
 
 /**
- * 
+ * Возвращает пешку при взятии на проходе
+ * @returns {void}
  */
 function returnPawnAttack() {
     if (savedPawn.figure == ' ') {
@@ -707,10 +777,11 @@ function returnPawnAttack() {
 }
 
 /**
- * 
- * @param {*} fromFigure 
- * @param {*} toX 
- * @param {*} toY 
+ * Проверяет атаку пешки на проходе
+ * @param {Object} fromFigure Координаты выбранной фигуры
+ * @param {Number} toX Координата ячейки назначения x
+ * @param {Number} toY Координата ячейки назначения y
+ * @returns {void}
  */
 function checkPawnAttack(fromFigure, toX, toY) {
     pawnAttack.x = -1;
@@ -728,16 +799,18 @@ function checkPawnAttack(fromFigure, toX, toY) {
 }
 
 /**
- * 
+ * Меняет цвет хода
+ * @returns {void}
  */
 function changeMove() {
     moveColor = moveColor == 'white' ? 'black' : 'white';
 }
 
 /**
- * 
- * @param {*} figure 
- * @param {*} render 
+ * Возвращает отображение фигур
+ * @param {String} figure Фигура
+ * @param {String} render Состояние отображения фигур
+ * @returns {String}
  */
 function displayFigure(figure, render) {
     render = render || 'text';
@@ -783,8 +856,9 @@ function displayFigure(figure, render) {
 }
 
 /**
- * 
- * @param {*} figure 
+ * Возвращает расположение картинки для фигуры
+ * @param {String} figure 
+ * @returns {String}
  */
 function getImgSrc(figure) {
     switch (figure) {
@@ -811,7 +885,8 @@ function getImgSrc(figure) {
 }
 
 /**
- * 
+ * Обновляет доску
+ * @returns {void}
  */
 function update() {
     let topPanel = createAlphaPanel();
@@ -920,6 +995,7 @@ function showInfo() {
 
 /**
  * Старт игры
+ * @returns {void}
  */
 function start() {
     initMap();
