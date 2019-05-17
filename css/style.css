@@ -2,31 +2,45 @@
     box-sizing: border-box;
 }
 
-.board {
-    width: 623.2px;
-    height: 623.2px;
-    margin: 30px auto;
+table {
+    padding: 2px;
+    border-spacing: 0px;
+}
+
+table td {
+    border: 1px solid #000;
+}
+
+tr {
+    display: flex;
+}
+
+td {
+    padding: 0px;
+    text-align: center;
+    overflow: hidden;
+}
+
+td > img {
+    width: 100%;
+    height: 100%;
+}
+
+td > img:hover {
+    cursor: pointer;
+}
+
+#board {
+    width: 630px;
+    height: 630px;
+    margin: 10px auto;
     box-sizing: content-box;
     background-color: #aaa;
 }
 
-.cell {
-    width: 72px;
-    height: 72px;
-    float: left;
-}
-
-.light-orange {
-    background: #FFCE9F;
-}
-
-.dark-orange {
-    background: #D28B48;
-}
-
 .game-field {
-    width: 580px;
-    height: 580px;
+    width: 583px;
+    height: 583px;
     position: relative;
     float: left;
     background: grey;
@@ -50,4 +64,75 @@
     color: white;
     line-height: 72px;
     font-size: 14px;
+}
+
+.light-orange {
+    background: #FFCE9F;
+}
+
+.dark-orange {
+    background: #D28B48;
+}
+
+.light-pink {
+    background-color: #faa;
+}
+
+.light-green {
+    background-color: #afa;
+}
+
+.cell {
+    width: 72px;
+    height: 72px;
+    font-size: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cell:hover {
+    cursor: pointer;
+}
+
+.game-panel {
+    display: flex;
+    justify-content: space-around;
+    height: 70px;
+    width: 630px;
+    margin: 0px auto;
+    background: #aaa;
+}
+
+.selected {
+    border: 1px solid #000;
+}
+
+.selected:hover {
+    border: 2px solid yellow;
+}
+
+#restart {
+    background-color: #ccc;
+    overflow: hidden;
+    display: flex;
+    text-align: center;
+    font-size: 30px;
+    color: yellowgreen;
+    width: 150px;
+}
+
+#restart img {
+    margin: auto;
+}
+
+#restart:hover {
+    cursor: pointer;
+    border: 2px solid greenyellow;
+}
+
+#info {
+    font-family: cursive;
+    font-size: 19px;
+    margin: 5px;
+    float: left;
+    width: 100%;
 }
