@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://docbook.org/xml/5.1/rng/docbook.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://docbook.org/xml/5.1/sch/docbook.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.1">
+    <info>
+        <title>Документация к проекту Chess</title>
+        <author>  
+            <personname>
+                <firstname>Динь Хией</firstname>
+                <surname>Ле</surname>
+            </personname>
+        </author>
+        <copyright>
+            <year>2019</year>
+            <holder>Ле Динь Хией</holder>
+        </copyright>
+    </info>
+    <section>
+        <title>Описание проекта</title>
+        <para>Данный проект является упрощённой версией игры в шахматы, реализованной под браузеры</para>
+        <para>Для открытия игры необходимо скачать по ссылке: https://github.com/pi16a-ppse/Chess</para>
+        <section>
+            <title>Особенности проекта</title>
+            <para>Управление происходит при помощи мышки</para>
+            <para>Присутствует возможность перезагрузки игры по нажатию соответствующей кнопки</para>
+        </section>
+        <section>
+            <title>Детали реализации</title>
+            <para>Особенности реализации отдельного функционала представлены ниже:</para>
+        </section>
+        <section>
+            <title>Обновление состояния шахматной доски</title>
+            <para>Обновление доски происходит после каждого хода игрока или перезапуска игры</para>
+            <example>
+                <programlisting>
+                    <![CDATA[
+        function update() {
+         let topPanel = createAlphaPanel();
+         let bottomPanel = createAlphaPanel();
+         let leftPanel = createNumericPanel();
+         let rightPanel = createNumericPanel();
+         let mid = document.createElement('div');
+         let board = document.getElementById('board');
+         let gameField = document.createElement('table');
+         let html = '';
+        
+         board.innerHTML = '';
+         gameField.className = 'game-field';
+        
+         for (let y = 7; y >= 0; y--) {
+             html += '<tr>';
+        
+             for (let x = 0; x < 8; x++) {
+                 let color = undefined;
+        
+                 if (info[x][y] == ' ') {
+                     color = (x + y) % 2 ? 'light-orange' : 'dark-orange';
+                 } else {
+                     color = info[x][y] == '1' ? 'light-green' : 'light-pink selected';
+                 }
+        
+                 html += '<td class="cell ' + color + 
+                         '" onclick="clickCell(' + x + ', ' + y + ');">';
+                 html += displayFigure(map[x][y], renderer) + '</td>';
+             }
+        
+             html += '</tr>';
+         }
+        
+         gameField.innerHTML = html;
+         mid.appendChild(leftPanel);
+         mid.appendChild(gameField);
+         mid.appendChild(rightPanel);
+         board.appendChild(topPanel);
+         board.appendChild(mid);
+         board.appendChild(bottomPanel);
+         showInfo();
+        }
+                    ]]>
+            </programlisting>
+            </example>
+        </section>
+        <section>
+            <title>Отображение информации о игре</title>
+            <para>После выполнения хода в браузере ниже доски выводится соответствующее сообщение</para>
+            <example>
+                <programlisting>
+                    <![CDATA[
+        function showInfo() {
+          let html = 'Ход: ' + ((moveColor == 'white') ? 'Белый' : 'Чёрный');
+          html += '<br>';
+          changeMove();
+          
+          if (isCheckMate()) {
+              html += 'Шах и мат &#9786;! ';
+              html += 'Победитель: ' + (moveColor == 'black' ? 'Чёрный! ' : 'Белый! ');
+              html += 'Можно выпить &#9749;'
+          } else if (isStaleMate()) {
+              html += 'Пат! Ничья!';
+          } else if (isCheck()) {
+              html += 'Шах!!!'
+          }
+          
+          changeMove();
+          document.getElementById('info').innerHTML = html;
+        }
+                    ]]>
+                </programlisting>
+            </example>
+        </section>
+        <section>
+            <title>Превращение пешки</title>
+            <para>При достижении конца доски противника пешка превращается в одну из доступных фигур</para>
+            <example>
+                <programlisting>
+                    <![CDATA[
+        function promotePawn(fromFigure, to) {
+            if (!isPawn(fromFigure)) {
+                return;
+            } else if (!(to.y == 7 || to.y == 0)) {
+                return;
+            } else {
+                let figure = ' ';
+                try {
+                    do {
+                        figure = prompt('Апгрейд!!! Новая фигура: Q B N R', 'Q');
+                    } while (!(isQueen(figure) 
+                            || isBishop(figure) 
+                            || isKnight(figure) 
+                            || isRook(figure)));    
+                } catch (error) {
+                    figure = 'Q';
+                }
+        
+                if (moveColor == 'white') {
+                    map[to.x][to.y] = figure.toUpperCase() 
+                } else {
+                    map[to.x][to.y] = figure.toLowerCase();
+                }
+            }
+        }
+                    ]]>
+                </programlisting>
+            </example>
+        </section>
+    </section>
+</article>
