@@ -1,27 +1,69 @@
 /**
- * @type {Array} Массив, хранящий расположения картинки фигур
+ * @type {Object} Массив, хранящий расположения картинки фигур
  */
 const imgSrc = {
+    /**
+     * @property Белый король
+     */
     wk: 'img/wk.png',
+    /**
+     * @property Белая ферзь
+     */
     wq: 'img/wq.png',
+    /**
+     * @property Белая ладья
+     */
     wr: 'img/wr.png',
+    /**
+     * @property Белый слон
+     */
     wb: 'img/wb.png',
+    /**
+     * @property Белый конь
+     */
     wn: 'img/wn.png',
+    /**
+     * @property Белая пешка
+     */
     wp: 'img/wp.png',
     
+    /**
+     * @property Чёрный король
+     */
     bk: 'img/bk.png',
+    /**
+     * @property Чёрная ферзь
+     */
     bq: 'img/bq.png',
+    /**
+     * @property Чёрная ладья
+     */
     br: 'img/br.png',
+    /**
+     * @property Чёрный слон
+     */
     bb: 'img/bb.png',
+    /**
+     * @property Чёрный конь
+     */
     bn: 'img/bn.png',
+    /**
+     * @property Чёрная пешка
+     */
     bp: 'img/bp.png',
 }
 
 /**
- * @type {String} Состояние отрисовки шахматных фигур
+ * @type {Object} Состояние отрисовки шахматных фигур
  */
 const renderState = {
+    /**
+     * @property Состояние отображения при помощи спец символов
+     */
     text: 'text',
+    /**
+     * @property Состояние отображения при помощи картин
+     */
     img: 'img'
 }
 
@@ -51,11 +93,20 @@ let toFigure;
 let possibleMoves;
 
 /**
- * @type {Object} Информация о сохранённой пешке(фигура, координаты)
+ * @type {Object} Информация о сохранённой пешке
  */
 let savedPawn = {
+    /**
+     * @property Старая фигура
+     */
     figure: ' ',
+    /**
+     * @property Координата по x
+     */
     x: -1,
+    /**
+     * @property Координата по y
+     */
     y: -1
 };
 
@@ -63,7 +114,13 @@ let savedPawn = {
  * @type {Object} Координаты предыдущей ячейки
  */
 let movingFrom = {
+    /**
+     * @property Координата по x
+     */
     x: 0,
+    /**
+     * @property Координата по y
+     */
     y: 0
 };
 
@@ -71,7 +128,13 @@ let movingFrom = {
  * @type {Object} Координаты битой пешки
  */
 let pawnAttack = {
+    /**
+     * @property Координата по x
+     */
     x: -1,
+    /**
+     * @property Координата по y
+     */
     y: -1
 };
 
@@ -89,7 +152,7 @@ let moveColor = 'white';
  * Обработчик события рестарт игры
  * @returns {void}
  */
-const restart = $('#restart').click(function (e) { 
+$('#restart').click(function (e) { 
     e.preventDefault();
     if (confirm('Вы уверены что хотите начать заново?')) {
         moveColor = 'white';

@@ -27,29 +27,71 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @type {Array} Массив, хранящий расположения картинки фигур
+ * @type {Object} Массив, хранящий расположения картинки фигур
  */
 const imgSrc = {
+    /**
+     * @property Белый король
+     */
     wk: 'img/wk.png',
+    /**
+     * @property Белая ферзь
+     */
     wq: 'img/wq.png',
+    /**
+     * @property Белая ладья
+     */
     wr: 'img/wr.png',
+    /**
+     * @property Белый слон
+     */
     wb: 'img/wb.png',
+    /**
+     * @property Белый конь
+     */
     wn: 'img/wn.png',
+    /**
+     * @property Белая пешка
+     */
     wp: 'img/wp.png',
     
+    /**
+     * @property Чёрный король
+     */
     bk: 'img/bk.png',
+    /**
+     * @property Чёрная ферзь
+     */
     bq: 'img/bq.png',
+    /**
+     * @property Чёрная ладья
+     */
     br: 'img/br.png',
+    /**
+     * @property Чёрный слон
+     */
     bb: 'img/bb.png',
+    /**
+     * @property Чёрный конь
+     */
     bn: 'img/bn.png',
+    /**
+     * @property Чёрная пешка
+     */
     bp: 'img/bp.png',
 }
 
 /**
- * @type {String} Состояние отрисовки шахматных фигур
+ * @type {Object} Состояние отрисовки шахматных фигур
  */
 const renderState = {
+    /**
+     * @property Состояние отображения при помощи спец символов
+     */
     text: 'text',
+    /**
+     * @property Состояние отображения при помощи картин
+     */
     img: 'img'
 }
 
@@ -79,11 +121,20 @@ let toFigure;
 let possibleMoves;
 
 /**
- * @type {Object} Информация о сохранённой пешке(фигура, координаты)
+ * @type {Object} Информация о сохранённой пешке
  */
 let savedPawn = {
+    /**
+     * @property Старая фигура
+     */
     figure: ' ',
+    /**
+     * @property Координата по x
+     */
     x: -1,
+    /**
+     * @property Координата по y
+     */
     y: -1
 };
 
@@ -91,7 +142,13 @@ let savedPawn = {
  * @type {Object} Координаты предыдущей ячейки
  */
 let movingFrom = {
+    /**
+     * @property Координата по x
+     */
     x: 0,
+    /**
+     * @property Координата по y
+     */
     y: 0
 };
 
@@ -99,7 +156,13 @@ let movingFrom = {
  * @type {Object} Координаты битой пешки
  */
 let pawnAttack = {
+    /**
+     * @property Координата по x
+     */
     x: -1,
+    /**
+     * @property Координата по y
+     */
     y: -1
 };
 
@@ -117,7 +180,7 @@ let moveColor = 'white';
  * Обработчик события рестарт игры
  * @returns {void}
  */
-const restart = $('#restart').click(function (e) { 
+$('#restart').click(function (e) { 
     e.preventDefault();
     if (confirm('Вы уверены что хотите начать заново?')) {
         moveColor = 'white';
@@ -1041,13 +1104,13 @@ start();</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#canMove">canMove</a></li><li><a href="global.html#canMoveFrom">canMoveFrom</a></li><li><a href="global.html#canMoveTo">canMoveTo</a></li><li><a href="global.html#canPawnTakePass">canPawnTakePass</a></li><li><a href="global.html#changeMove">changeMove</a></li><li><a href="global.html#checkPawnAttack">checkPawnAttack</a></li><li><a href="global.html#clickCell">clickCell</a></li><li><a href="global.html#clickCellFrom">clickCellFrom</a></li><li><a href="global.html#clickCellTo">clickCellTo</a></li><li><a href="global.html#createAlphaPanel">createAlphaPanel</a></li><li><a href="global.html#createNumericPanel">createNumericPanel</a></li><li><a href="global.html#displayFigure">displayFigure</a></li><li><a href="global.html#findFigure">findFigure</a></li><li><a href="global.html#fromFigure">fromFigure</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getImgSrc">getImgSrc</a></li><li><a href="global.html#imgSrc">imgSrc</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#initInfo">initInfo</a></li><li><a href="global.html#initMap">initMap</a></li><li><a href="global.html#isBishop">isBishop</a></li><li><a href="global.html#isBishopDelta">isBishopDelta</a></li><li><a href="global.html#isCheck">isCheck</a></li><li><a href="global.html#isCheckAfterMove">isCheckAfterMove</a></li><li><a href="global.html#isCheckMate">isCheckMate</a></li><li><a href="global.html#isCorrectBishopMove">isCorrectBishopMove</a></li><li><a href="global.html#isCorrectDelta">isCorrectDelta</a></li><li><a href="global.html#isCorrectKingMove">isCorrectKingMove</a></li><li><a href="global.html#isCorrectKnightMove">isCorrectKnightMove</a></li><li><a href="global.html#isCorrectMove">isCorrectMove</a></li><li><a href="global.html#isCorrectPawnMove">isCorrectPawnMove</a></li><li><a href="global.html#isCorrectQueenMove">isCorrectQueenMove</a></li><li><a href="global.html#isCorrectRookMove">isCorrectRookMove</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#isKing">isKing</a></li><li><a href="global.html#isKnight">isKnight</a></li><li><a href="global.html#isLineMove">isLineMove</a></li><li><a href="global.html#isOnMap">isOnMap</a></li><li><a href="global.html#isPawn">isPawn</a></li><li><a href="global.html#isQueen">isQueen</a></li><li><a href="global.html#isQueenDelta">isQueenDelta</a></li><li><a href="global.html#isRook">isRook</a></li><li><a href="global.html#isRookDelta">isRookDelta</a></li><li><a href="global.html#isSignPawnMove">isSignPawnMove</a></li><li><a href="global.html#isStaleMate">isStaleMate</a></li><li><a href="global.html#map">map</a></li><li><a href="global.html#markMovesFrom">markMovesFrom</a></li><li><a href="global.html#markMovesTo">markMovesTo</a></li><li><a href="global.html#moveColor">moveColor</a></li><li><a href="global.html#moveFigure">moveFigure</a></li><li><a href="global.html#movePawnAttack">movePawnAttack</a></li><li><a href="global.html#movingFrom">movingFrom</a></li><li><a href="global.html#pawnAttack">pawnAttack</a></li><li><a href="global.html#possibleMoves">possibleMoves</a></li><li><a href="global.html#promotePawn">promotePawn</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#renderState">renderState</a></li><li><a href="global.html#restart">restart</a></li><li><a href="global.html#returnFigure">returnFigure</a></li><li><a href="global.html#returnPawnAttack">returnPawnAttack</a></li><li><a href="global.html#savedPawn">savedPawn</a></li><li><a href="global.html#showInfo">showInfo</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#toFigure">toFigure</a></li><li><a href="global.html#update">update</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#canMove">canMove</a></li><li><a href="global.html#canMoveFrom">canMoveFrom</a></li><li><a href="global.html#canMoveTo">canMoveTo</a></li><li><a href="global.html#canPawnTakePass">canPawnTakePass</a></li><li><a href="global.html#changeMove">changeMove</a></li><li><a href="global.html#checkPawnAttack">checkPawnAttack</a></li><li><a href="global.html#clickCell">clickCell</a></li><li><a href="global.html#clickCellFrom">clickCellFrom</a></li><li><a href="global.html#clickCellTo">clickCellTo</a></li><li><a href="global.html#createAlphaPanel">createAlphaPanel</a></li><li><a href="global.html#createNumericPanel">createNumericPanel</a></li><li><a href="global.html#displayFigure">displayFigure</a></li><li><a href="global.html#findFigure">findFigure</a></li><li><a href="global.html#fromFigure">fromFigure</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getImgSrc">getImgSrc</a></li><li><a href="global.html#imgSrc">imgSrc</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#initInfo">initInfo</a></li><li><a href="global.html#initMap">initMap</a></li><li><a href="global.html#isBishop">isBishop</a></li><li><a href="global.html#isBishopDelta">isBishopDelta</a></li><li><a href="global.html#isCheck">isCheck</a></li><li><a href="global.html#isCheckAfterMove">isCheckAfterMove</a></li><li><a href="global.html#isCheckMate">isCheckMate</a></li><li><a href="global.html#isCorrectBishopMove">isCorrectBishopMove</a></li><li><a href="global.html#isCorrectDelta">isCorrectDelta</a></li><li><a href="global.html#isCorrectKingMove">isCorrectKingMove</a></li><li><a href="global.html#isCorrectKnightMove">isCorrectKnightMove</a></li><li><a href="global.html#isCorrectMove">isCorrectMove</a></li><li><a href="global.html#isCorrectPawnMove">isCorrectPawnMove</a></li><li><a href="global.html#isCorrectQueenMove">isCorrectQueenMove</a></li><li><a href="global.html#isCorrectRookMove">isCorrectRookMove</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#isKing">isKing</a></li><li><a href="global.html#isKnight">isKnight</a></li><li><a href="global.html#isLineMove">isLineMove</a></li><li><a href="global.html#isOnMap">isOnMap</a></li><li><a href="global.html#isPawn">isPawn</a></li><li><a href="global.html#isQueen">isQueen</a></li><li><a href="global.html#isQueenDelta">isQueenDelta</a></li><li><a href="global.html#isRook">isRook</a></li><li><a href="global.html#isRookDelta">isRookDelta</a></li><li><a href="global.html#isSignPawnMove">isSignPawnMove</a></li><li><a href="global.html#isStaleMate">isStaleMate</a></li><li><a href="global.html#map">map</a></li><li><a href="global.html#markMovesFrom">markMovesFrom</a></li><li><a href="global.html#markMovesTo">markMovesTo</a></li><li><a href="global.html#moveColor">moveColor</a></li><li><a href="global.html#moveFigure">moveFigure</a></li><li><a href="global.html#movePawnAttack">movePawnAttack</a></li><li><a href="global.html#movingFrom">movingFrom</a></li><li><a href="global.html#pawnAttack">pawnAttack</a></li><li><a href="global.html#possibleMoves">possibleMoves</a></li><li><a href="global.html#promotePawn">promotePawn</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#renderState">renderState</a></li><li><a href="global.html#returnFigure">returnFigure</a></li><li><a href="global.html#returnPawnAttack">returnPawnAttack</a></li><li><a href="global.html#savedPawn">savedPawn</a></li><li><a href="global.html#showInfo">showInfo</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#toFigure">toFigure</a></li><li><a href="global.html#update">update</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri May 17 2019 13:07:34 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Wed May 29 2019 14:33:04 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>
